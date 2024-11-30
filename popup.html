@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <title>Multi-Utility Extension</title>
+</head>
+<body>
+    <div class="container">
+        <header class="app-header">
+            <h1>Utility Hub</h1>
+        </header>
+
+        <nav class="menu">
+            <button class="menu-btn active" data-utility="todo">
+                <i class="fas fa-tasks"></i>
+                Todo List
+            </button>
+            <button class="menu-btn" data-utility="calc">
+                <i class="fas fa-calculator"></i>
+                Calculator
+            </button>
+            <button class="menu-btn" data-utility="timer">
+                <i class="fas fa-clock"></i>
+                Timer
+            </button>
+            <button class="menu-btn disabled">
+                <i class="fas fa-sticky-note"></i>
+                Notes
+                <span class="coming-soon">Coming Soon</span>
+            </button>
+            <button class="menu-btn disabled">
+                <i class="fas fa-bookmark"></i>
+                Bookmarks
+                <span class="coming-soon">Coming Soon</span>
+            </button>
+        </nav>
+        
+        <main class="utility-container">
+            <section id="todo" class="utility active">
+                <div class="utility-header">
+                    <h2>Todo List</h2>
+                </div>
+                <div class="input-group">
+                    <input type="text" id="todo-input" placeholder="Add new task...">
+                    <button class="add-todo"><i class="fas fa-plus"></i></button>
+                </div>
+                <ul id="todo-list"></ul>
+            </section>
+
+            <section id="calc" class="utility">
+                <div class="utility-header">
+                    <h2>Calculator</h2>
+                </div>
+                <input type="text" id="calc-display" readonly>
+                <div class="calc-buttons">
+                    <button class="calc-btn operator">AC</button>
+                    <button class="calc-btn operator">±</button>
+                    <button class="calc-btn operator">%</button>
+                    <button class="calc-btn operator">÷</button>
+                    <button class="calc-btn">7</button>
+                    <button class="calc-btn">8</button>
+                    <button class="calc-btn">9</button>
+                    <button class="calc-btn operator">×</button>
+                    <button class="calc-btn">4</button>
+                    <button class="calc-btn">5</button>
+                    <button class="calc-btn">6</button>
+                    <button class="calc-btn operator">-</button>
+                    <button class="calc-btn">1</button>
+                    <button class="calc-btn">2</button>
+                    <button class="calc-btn">3</button>
+                    <button class="calc-btn operator">+</button>
+                    <button class="calc-btn zero">0</button>
+                    <button class="calc-btn">.</button>
+                    <button class="calc-btn operator">=</button>
+                </div>
+            </section>
+
+            <section id="timer" class="utility">
+                <div class="utility-header">
+                    <h2>Timer</h2>
+                </div>
+                <div class="timer-display">00:00:00</div>
+                <div class="timer-controls">
+                    <button id="start" class="timer-btn">
+                        <i class="fas fa-play"></i>
+                        Start
+                    </button>
+                    <button id="stop" class="timer-btn">
+                        <i class="fas fa-pause"></i>
+                        Stop
+                    </button>
+                    <button id="reset" class="timer-btn">
+                        <i class="fas fa-redo"></i>
+                        Reset
+                    </button>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="popup.js"></script>
+</body>
+</html>

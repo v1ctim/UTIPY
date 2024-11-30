@@ -1,0 +1,186 @@
+:root {
+  --primary: #4a90e2;
+  --secondary: #f5f6fa;
+  --text: #2c3e50;
+  --border: #e1e8ed;
+  --shadow: rgba(0, 0, 0, 0.1);
+}
+
+body {
+  width: 340px;
+  padding: 16px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: var(--text);
+  background: white;
+  margin: 0;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px var(--shadow);
+}
+
+.menu {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  padding: 12px;
+  background: var(--secondary);
+  border-radius: 10px;
+}
+
+.menu-btn {
+  padding: 10px 16px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: white;
+  color: var(--text);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.menu-btn:hover:not(.disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px var(--shadow);
+}
+
+.menu-btn.active {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+
+.menu-btn.disabled {
+  opacity: 0.6;
+  background: var(--secondary);
+  cursor: not-allowed;
+}
+
+.utility {
+  display: none;
+  padding: 16px;
+  border-radius: 10px;
+  background: white;
+}
+
+.utility.active {
+  display: block;
+  animation: fadeIn 0.3s ease;
+}
+
+/* Todo styles */
+#todo-input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  margin-bottom: 12px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+#todo-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#todo-list li {
+  padding: 12px;
+  background: var(--secondary);
+  border-radius: 6px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+#todo-list li:hover {
+  background: var(--border);
+}
+
+/* Calculator styles */
+#calc-display {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  text-align: right;
+  font-size: 18px;
+  box-sizing: border-box;
+}
+
+.calc-buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+.calc-buttons button {
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  background: var(--secondary);
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.calc-buttons button:hover {
+  background: var(--border);
+}
+
+/* Timer styles */
+.timer-display {
+  font-size: 2.5em;
+  text-align: center;
+  margin-bottom: 16px;
+  font-weight: 600;
+  color: var(--primary);
+}
+
+.timer-controls {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+.timer-controls button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  background: var(--primary);
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.timer-controls button:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.app-header {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+  background: var(--secondary);
+  border-radius: 10px 10px 0 0;
+}
+
+.app-header h1 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: var(--text);
+  font-weight: 600;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}

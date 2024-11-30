@@ -1,4 +1,4 @@
-# 🛠️ **UtilPy**   
+# 🛠️ **UTIPY**   
 *A Chrome extension that boosts productivity with a Todo List, Calculator, and Timer.*
 
 ---
@@ -6,7 +6,8 @@
 ## 🚀 **Features** 
 - **📝 Todo List**: Add, delete, and mark tasks as done.  
 - **🧮 Calculator**: Perform basic arithmetic.  
-- **⏱️ Timer**: Track time with start, stop, and reset.  
+- **⏱️ Timer**: Stopwatch   
+- **📓 Notes**: Notetaking with abitlity to export
 
 ---
 
@@ -23,7 +24,7 @@
 
 ## 📖 **Usage** 
 
-Click the UtilPy icon in the Chrome toolbar to open the extension and access the Todo List, Calculator, or Timer.
+Click the UTIPY icon in the Chrome toolbar to open the extension and access the Todo List, Calculator, Timer or Notes.
 Wait till more updates in future with more features coming!🔥
 
 ---

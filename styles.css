@@ -272,6 +272,171 @@ button:hover {
     transition-duration: 0.4s; /* Transition effect */
 }
 
+/* Notes styles */
+#notes-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+
+#notes-list li {
+  padding: 12px;
+  background: var(--secondary);
+  border-radius: 6px;
+  margin-bottom: 8px;
+  transition: all 0.2s ease;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.note-content {
+  flex: 1;
+  min-width: 0; /* Important for text wrapping */
+}
+
+.note-content p {
+  margin: 0 0 4px 0;
+  font-size: 14px;
+  line-height: 1.4;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: pre-wrap;
+}
+
+.note-date {
+  display: block;
+  font-size: 12px;
+  color: #666;
+}
+
+.delete-note {
+  grid-row: 1;
+  padding: 4px 8px;
+  background: none;
+  border: none;
+  color: #e74c3c;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.delete-note:hover {
+  color: #c0392b;
+}
+
+.note-actions {
+  display: grid;
+  gap: 4px;
+  position: relative;
+}
+
+.export-wrapper {
+  grid-row: 2;
+  position: relative;
+}
+
+.export-note {
+  padding: 4px 8px;
+  background: none;
+  border: none;
+  color: var(--primary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  padding-left: 12px; /* Increase left padding to create space */
+}
+
+.export-note:hover {
+  color: #2980b9;
+}
+
+.export-note i {
+  margin-left: 1px; /* or padding-left: 4px; */
+  position: relative;
+  left: 0px; /* Move icon slightly to the right */
+}
+
+.export-dropdown {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px var(--shadow);
+  display: none;
+  z-index: 1000;
+  min-width: 150px;
+}
+
+.export-wrapper:hover .export-dropdown {
+  display: block;
+  animation: fadeIn 0.2s ease;
+}
+
+.export-dropdown button {
+  width: 100%;
+  padding: 8px 12px;
+  text-align: left;
+  background: none;
+  border: none;
+  color: var(--text);
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.export-dropdown button:hover {
+  background: var(--secondary);
+  color: var(--text);
+}
+
+/* Notes input styles */
+#notes-input {
+  width: 100%;
+  min-height: 42px;
+  max-height: 200px;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  margin-bottom: 12px;
+  font-size: 14px;
+  box-sizing: border-box;
+  transition: height 0.2s ease;
+  resize: none;
+  overflow-y: auto;
+  line-height: 1.5;
+  font-family: inherit;
+}
+
+#notes-input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.1);
+}
+
+.input-group {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.add-note {
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  background: var(--primary);
+  color: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.add-note:hover {
+  background: #2980b9;
+  transform: translateY(-1px);
+}
+
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }

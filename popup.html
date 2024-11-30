@@ -26,10 +26,9 @@
                 <i class="fas fa-clock"></i>
                 Timer
             </button>
-            <button class="menu-btn disabled">
+            <button class="menu-btn" data-utility="notes">
                 <i class="fas fa-sticky-note"></i>
                 Notes
-                <span class="coming-soon">Coming Soon</span>
             </button>
             <button class="menu-btn disabled">
                 <i class="fas fa-bookmark"></i>
@@ -47,21 +46,10 @@
                     <input type="text" id="todo-input" placeholder="Add new task...">
                     <button class="add-todo"><i class="fas fa-plus"></i></button>
                 </div>
-                <ul id="todo-list">
-                    <li>
-                        Task 1
-                        <button class="tick-button">✔</button>
-                    </li>
-                    <li>
-                        Task 2
-                        <button class="tick-button">✔</button>
-                    </li>
-                </ul>
+                <ul id="todo-list"></ul>
                 <div id="finished-tasks-container">
                     <button id="toggle-finished-tasks">Show Finished Tasks</button>
-                    <ul id="finished-tasks" style="display: none;">
-                        <!-- Finished tasks will be appended here -->
-                    </ul>
+                    <ul id="finished-tasks" style="display: none;"></ul>
                 </div>
             </section>
 
@@ -111,6 +99,17 @@
                         Reset
                     </button>
                 </div>
+            </section>
+
+            <section id="notes" class="utility">
+                <div class="utility-header">
+                    <h2>Notes</h2>
+                </div>
+                <div class="input-group">
+                    <input type="text" id="notes-input" placeholder="Add a new note...">
+                    <button class="add-note"><i class="fas fa-plus"></i></button>
+                </div>
+                <ul id="notes-list"></ul>
             </section>
         </main>
     </div>

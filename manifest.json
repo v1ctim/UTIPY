@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
-  "name": "UtiPy",
-  "version": "1.0",
+  "name": "UTIPY",
+  "version": "1.1",
   "description": "Chrome extension with multiple utilities",
   "action": {
     "default_popup": "popup.html"

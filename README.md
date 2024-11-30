@@ -13,7 +13,7 @@
 ## 📥 **Installation** 
 1. Clone or download this repository.  
    ```bash
-   git clone https://github.com/v1ctim/UtilPy.git
+   git clone https://github.com/yourusername/UTIPY.git
 2. Open Google Chrome and go to:
     chrome://extensions/
 3. Enable Developer mode (toggle in the top-right corner).

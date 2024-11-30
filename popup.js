@@ -26,65 +26,104 @@ class TodoManager {
   constructor() {
     this.todoInput = document.getElementById('todo-input');
     this.todoList = document.getElementById('todo-list');
+    this.finishedTasks = document.getElementById('finished-tasks');
+    this.toggleFinishedTasksButton = document.getElementById('toggle-finished-tasks');
     this.todos = JSON.parse(localStorage.getItem('todos') || '[]');
+    this.finishedTodos = JSON.parse(localStorage.getItem('finishedTodos') || '[]');
+    this.taskLengthLimit = 40; // Set the task length limit here
     this.initializeTodoList();
   }
 
   initializeTodoList() {
     this.renderTodos();
-    this.todoInput.addEventListener('keypress', (e) => this.handleNewTodo(e));
-    document.querySelector('.add-todo').addEventListener('click', () => this.handleNewTodo());
+    this.todoInput.addEventListener('keypress', (e) => this.handleNewTodoKeyPress(e));
+    document.querySelector('.add-todo').addEventListener('click', () => this.handleNewTodoClick());
+    this.todoList.addEventListener('click', (e) => this.handleTodoClick(e));
+    this.toggleFinishedTasksButton.addEventListener('click', () => this.toggleFinishedTasks());
+    this.finishedTasks.style.display = 'none'; // Ensure initial state is hidden
   }
 
-  handleNewTodo(e = null) {
-    if ((e && e.key === 'Enter' && this.todoInput.value.trim()) || 
-        (!e && this.todoInput.value.trim())) {
-      const todo = {
-        text: this.todoInput.value.trim(),
-        completed: false,
-        id: Date.now()
-      };
-      this.todos.push(todo);
-      this.todoList.appendChild(this.createTodoElement(todo));
-      this.todoInput.value = '';
-      this.saveTodos();
+  handleNewTodoKeyPress(e) {
+    if (e.key === 'Enter' && this.todoInput.value.trim()) {
+      this.addNewTodo();
     }
   }
 
-  createTodoElement(todo) {
-    const li = document.createElement('li');
-    li.innerHTML = `
-      <span class="todo-text ${todo.completed ? 'completed' : ''}">${todo.text}</span>
-      <div class="todo-actions">
-        <button class="todo-toggle"><i class="fas fa-check"></i></button>
-        <button class="todo-delete"><i class="fas fa-trash"></i></button>
-      </div>
-    `;
-
-    li.querySelector('.todo-toggle').addEventListener('click', () => {
-      todo.completed = !todo.completed;
-      li.querySelector('.todo-text').classList.toggle('completed');
-      this.saveTodos();
-    });
-
-    li.querySelector('.todo-delete').addEventListener('click', () => {
-      this.todos = this.todos.filter(t => t.id !== todo.id);
-      li.remove();
-      this.saveTodos();
-    });
-
-    return li;
+  handleNewTodoClick() {
+    if (this.todoInput.value.trim()) {
+      this.addNewTodo();
+    }
   }
 
-  renderTodos() {
-    this.todoList.innerHTML = '';
-    this.todos.forEach(todo => {
-      this.todoList.appendChild(this.createTodoElement(todo));
-    });
+  addNewTodo() {
+    const taskText = this.todoInput.value.trim();
+    if (taskText.length > this.taskLengthLimit) {
+      alert(`Task length should not exceed ${this.taskLengthLimit} characters.`);
+      return;
+    }
+    const todo = {
+      text: taskText,
+      completed: false,
+      id: Date.now()
+    };
+    this.todos.push(todo);
+    this.saveTodos();
+    this.renderTodos();
+    this.todoInput.value = '';
+  }
+
+  handleTodoClick(e) {
+    if (e.target.classList.contains('tick-button')) {
+      const taskItem = e.target.closest('li');
+      const taskId = parseInt(taskItem.dataset.id, 10);
+      this.completeTodoTask(taskId);
+    }
+  }
+
+  completeTodoTask(taskId) {
+    const todoIndex = this.todos.findIndex(todo => todo.id === taskId);
+    if (todoIndex > -1) {
+      const [completedTodo] = this.todos.splice(todoIndex, 1);
+      completedTodo.completed = true;
+      completedTodo.finishedDate = new Date().toLocaleString();
+      this.finishedTodos.push(completedTodo);
+      this.saveTodos();
+      this.renderTodos();
+    }
+  }
+
+  toggleFinishedTasks() {
+    if (this.finishedTasks.style.display === 'none') {
+      this.finishedTasks.style.display = 'block';
+      this.toggleFinishedTasksButton.textContent = 'Hide Finished Tasks';
+    } else {
+      this.finishedTasks.style.display = 'none';
+      this.toggleFinishedTasksButton.textContent = 'Show Finished Tasks';
+    }
   }
 
   saveTodos() {
     localStorage.setItem('todos', JSON.stringify(this.todos));
+    localStorage.setItem('finishedTodos', JSON.stringify(this.finishedTodos));
+  }
+
+  renderTodos() {
+    this.todoList.innerHTML = '';
+    this.finishedTasks.innerHTML = '';
+
+    this.todos.forEach(todo => {
+      const todoItem = document.createElement('li');
+      todoItem.dataset.id = todo.id;
+      todoItem.innerHTML = `${todo.text} <button class="tick-button">✔</button>`;
+      this.todoList.appendChild(todoItem);
+    });
+
+    this.finishedTodos.forEach(todo => {
+      const finishedItem = document.createElement('li');
+      finishedItem.dataset.id = todo.id;
+      finishedItem.innerHTML = `${todo.text} <span class="finished-date">(${todo.finishedDate})</span>`;
+      this.finishedTasks.appendChild(finishedItem);
+    });
   }
 }
 
@@ -100,11 +139,84 @@ class Calculator {
   }
 
   initializeCalculator() {
+    // Keep existing button click handler
     document.querySelector('.calc-buttons').addEventListener('click', (e) => {
       if (e.target.matches('button')) this.handleInput(e.target.textContent);
     });
+    
+    // Add keyboard support
+    document.addEventListener('keydown', (e) => this.handleKeyPress(e));
   }
 
+  handleKeyPress(e) {
+    // Prevent default behavior for calculator keys
+    if (this.isCalculatorKey(e.key)) {
+      e.preventDefault();
+    }
+
+    // Map keyboard inputs to calculator functions
+    switch (e.key) {
+      case '0':
+      case '1':
+      case '2':
+      case '3':
+      case '4':
+      case '5':
+      case '6':
+      case '7':
+      case '8':
+      case '9':
+      case '.':
+        this.inputNumber(e.key);
+        break;
+      case '+':
+      case 'Add':
+        this.handleOperator('+');
+        break;
+      case '-':
+      case 'Subtract':
+        this.handleOperator('-');
+        break;
+      case '*':
+      case 'Multiply':
+        this.handleOperator('×');
+        break;
+      case '/':
+      case 'Divide':
+        this.handleOperator('÷');
+        break;
+      case 'Enter':
+      case '=':
+        this.calculate();
+        break;
+      case 'Escape':
+        this.clear();
+        break;
+      case 'Backspace':
+        this.deleteLastDigit();
+        break;
+      case '%':
+        this.percentage();
+        break;
+    }
+  }
+
+  isCalculatorKey(key) {
+    const validKeys = [
+      '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+      '+', '-', '*', '/', '=', 'Enter', 'Escape', 'Backspace', '%', '.',
+      'Add', 'Subtract', 'Multiply', 'Divide'
+    ];
+    return validKeys.includes(key);
+  }
+
+  deleteLastDigit() {
+    if (this.newNumber) return;
+    this.currentValue = this.currentValue.slice(0, -1) || '0';
+    this.updateDisplay();
+  }
+
+  // Keep all existing methods
   handleInput(value) {
     if (value >= '0' && value <= '9' || value === '.') {
       this.inputNumber(value);
@@ -194,49 +306,51 @@ class Calculator {
 // Timer Manager
 class TimerManager {
   constructor() {
-    this.display = document.querySelector('.timer-display');
+    this.display = document.querySelector('.timer-display .time');
+    this.millisecondsDisplay = document.querySelector('.timer-display .milliseconds');
+    this.startButton = document.getElementById('start');
+    this.resetButton = document.getElementById('reset');
     this.seconds = 0;
+    this.milliseconds = 0;
     this.interval = null;
-    this.isRunning = false;
     this.initializeTimer();
   }
 
   initializeTimer() {
-    document.getElementById('start').addEventListener('click', () => this.toggleTimer());
-    document.getElementById('stop').addEventListener('click', () => this.stopTimer());
-    document.getElementById('reset').addEventListener('click', () => this.resetTimer());
+    this.startButton.addEventListener('click', () => this.toggleTimer());
+    this.resetButton.addEventListener('click', () => this.resetTimer());
   }
 
   toggleTimer() {
-    if (!this.isRunning) {
-      this.startTimer();
-    } else {
+    if (this.interval) {
       this.pauseTimer();
+    } else {
+      this.startTimer();
     }
   }
 
   startTimer() {
-    this.isRunning = true;
     this.interval = setInterval(() => {
-      this.seconds++;
+      this.milliseconds += 10;
+      if (this.milliseconds >= 1000) {
+        this.seconds++;
+        this.milliseconds = 0;
+      }
       this.updateDisplay();
-    }, 1000);
-    document.getElementById('start').innerHTML = '<i class="fas fa-pause"></i> Pause';
+    }, 10);
+    this.startButton.innerHTML = '<i class="fas fa-pause"></i> Pause';
   }
 
   pauseTimer() {
-    this.isRunning = false;
     clearInterval(this.interval);
-    document.getElementById('start').innerHTML = '<i class="fas fa-play"></i> Start';
-  }
-
-  stopTimer() {
-    this.pauseTimer();
+    this.interval = null;
+    this.startButton.innerHTML = '<i class="fas fa-play"></i> Start';
   }
 
   resetTimer() {
     this.pauseTimer();
     this.seconds = 0;
+    this.milliseconds = 0;
     this.updateDisplay();
   }
 
@@ -244,8 +358,10 @@ class TimerManager {
     const hrs = Math.floor(this.seconds / 3600);
     const mins = Math.floor((this.seconds % 3600) / 60);
     const secs = this.seconds % 60;
+    const millis = this.milliseconds / 10;
     this.display.textContent = 
       `${hrs.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+    this.millisecondsDisplay.textContent = `.${millis.toString().padStart(2, '0')}`;
   }
 }
 

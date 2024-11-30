@@ -47,7 +47,22 @@
                     <input type="text" id="todo-input" placeholder="Add new task...">
                     <button class="add-todo"><i class="fas fa-plus"></i></button>
                 </div>
-                <ul id="todo-list"></ul>
+                <ul id="todo-list">
+                    <li>
+                        Task 1
+                        <button class="tick-button">✔</button>
+                    </li>
+                    <li>
+                        Task 2
+                        <button class="tick-button">✔</button>
+                    </li>
+                </ul>
+                <div id="finished-tasks-container">
+                    <button id="toggle-finished-tasks">Show Finished Tasks</button>
+                    <ul id="finished-tasks" style="display: none;">
+                        <!-- Finished tasks will be appended here -->
+                    </ul>
+                </div>
             </section>
 
             <section id="calc" class="utility">
@@ -82,17 +97,16 @@
                 <div class="utility-header">
                     <h2>Timer</h2>
                 </div>
-                <div class="timer-display">00:00:00</div>
+                <div class="timer-display">
+                    <span class="time">00:00:00</span>
+                    <span class="milliseconds">.00</span>
+                </div>
                 <div class="timer-controls">
                     <button id="start" class="timer-btn">
                         <i class="fas fa-play"></i>
                         Start
                     </button>
-                    <button id="stop" class="timer-btn">
-                        <i class="fas fa-pause"></i>
-                        Stop
-                    </button>
-                    <button id="reset" class="timer-btn">
+                    <button id="reset" class="reset-btn">
                         <i class="fas fa-redo"></i>
                         Reset
                     </button>
